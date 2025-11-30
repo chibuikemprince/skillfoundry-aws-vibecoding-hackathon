@@ -1,0 +1,464 @@
+{
+  "info": {
+    "name": "SkillFoundry API",
+    "description": "AI Curriculum & Learning Companion API - Complete collection of endpoints for user authentication, curriculum generation, lesson management, and progress tracking.",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{authToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "description": "User registration and login endpoints",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"profile\": {\n    \"targetSkill\": \"Web Development\",\n    \"currentLevel\": \"beginner\",\n    \"timePerWeek\": 10,\n    \"goalType\": \"job-ready\",\n    \"preferredStyle\": \"mixed\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            },
+            "description": "Register a new user with learning profile. Creates user account and returns JWT token for authentication."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"profile\": {\n    \"targetSkill\": \"Web Development\",\n    \"currentLevel\": \"beginner\",\n    \"timePerWeek\": 10,\n    \"goalType\": \"job-ready\",\n    \"preferredStyle\": \"mixed\"\n  }\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/auth/register",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "auth", "register"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"message\": \"User created successfully\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n  \"user\": {\n    \"id\": \"64f1a2b3c4d5e6f7g8h9i0j1\",\n    \"email\": \"user@example.com\",\n    \"profile\": {\n      \"targetSkill\": \"Web Development\",\n      \"currentLevel\": \"beginner\",\n      \"timePerWeek\": 10,\n      \"goalType\": \"job-ready\",\n      \"preferredStyle\": \"mixed\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "description": "Authenticate user with email and password. Returns JWT token for accessing protected endpoints."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/auth/login",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "auth", "login"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"Login successful\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n  \"user\": {\n    \"id\": \"64f1a2b3c4d5e6f7g8h9i0j1\",\n    \"email\": \"user@example.com\",\n    \"profile\": {\n      \"targetSkill\": \"Web Development\",\n      \"currentLevel\": \"beginner\",\n      \"timePerWeek\": 10,\n      \"goalType\": \"job-ready\",\n      \"preferredStyle\": \"mixed\"\n    }\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Curriculum Management",
+      "description": "AI-powered curriculum generation and management",
+      "item": [
+        {
+          "name": "Generate Curriculum",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/curriculum",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "curriculum"]
+            },
+            "description": "Generate personalized curriculum based on user profile. Uses AI to create structured learning path with modules, topics, and weekly roadmap."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{authToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/curriculum",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "curriculum"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"Curriculum created successfully\",\n  \"curriculum\": {\n    \"_id\": \"64f1a2b3c4d5e6f7g8h9i0j1\",\n    \"userId\": \"64f1a2b3c4d5e6f7g8h9i0j0\",\n    \"skill\": \"Web Development\",\n    \"modules\": [\n      {\n        \"id\": \"module-1\",\n        \"title\": \"HTML & CSS Fundamentals\",\n        \"description\": \"Learn the building blocks of web development\",\n        \"estimatedWeeks\": 3,\n        \"topics\": [\n          {\n            \"id\": \"topic-1\",\n            \"title\": \"HTML Basics\",\n            \"description\": \"Structure and semantics\",\n            \"difficulty\": \"beginner\",\n            \"subtopics\": [\n              {\n                \"id\": \"subtopic-1\",\n                \"title\": \"HTML Elements\",\n                \"description\": \"Basic HTML tags and structure\",\n                \"estimatedHours\": 2\n              }\n            ]\n          }\n        ]\n      }\n    ],\n    \"weeklyRoadmap\": [\n      {\n        \"week\": 1,\n        \"topics\": [\"topic-1\"],\n        \"estimatedHours\": 10,\n        \"goals\": [\"Understand HTML structure\", \"Create basic web pages\"]\n      }\n    ]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get User Curriculum",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/curriculum",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "curriculum"]
+            },
+            "description": "Retrieve user's current curriculum with all modules, topics, and weekly roadmap."
+          }
+        },
+        {
+          "name": "Get Weekly Plan",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/curriculum/week/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "curriculum", "week", "1"]
+            },
+            "description": "Get detailed weekly learning plan with topics, goals, and estimated hours for a specific week."
+          }
+        },
+        {
+          "name": "Get Progress Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/curriculum/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "curriculum", "dashboard"]
+            },
+            "description": "Get comprehensive progress dashboard with completion percentages, current week, mastery scores, and overall learning statistics."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lessons & Quizzes",
+      "description": "AI-generated lessons and interactive quizzes",
+      "item": [
+        {
+          "name": "Generate Lesson for Subtopic",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/lessons/subtopic/subtopic-1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "lessons", "subtopic", "subtopic-1"]
+            },
+            "description": "Generate AI-powered lesson content for a specific subtopic. Creates detailed explanation, examples, and practice tasks."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{authToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/lessons/subtopic/subtopic-1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "lessons", "subtopic", "subtopic-1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"lesson\": {\n    \"_id\": \"64f1a2b3c4d5e6f7g8h9i0j2\",\n    \"subtopicId\": \"subtopic-1\",\n    \"title\": \"HTML Elements\",\n    \"objective\": \"Learn basic HTML tags and document structure\",\n    \"content\": \"HTML (HyperText Markup Language) is the standard markup language...\",\n    \"examples\": [\n      \"<!DOCTYPE html>\\n<html>\\n<head>\\n<title>My First Page</title>\\n</head>\\n<body>\\n<h1>Hello World!</h1>\\n</body>\\n</html>\"\n    ],\n    \"practiceTask\": \"Create a simple HTML page with a title, heading, and paragraph\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Lesson",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/lessons/64f1a2b3c4d5e6f7g8h9i0j2",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "lessons", "64f1a2b3c4d5e6f7g8h9i0j2"]
+            },
+            "description": "Retrieve lesson content by lesson ID. Automatically logs lesson view for progress tracking."
+          }
+        },
+        {
+          "name": "Get Quiz for Lesson",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/lessons/64f1a2b3c4d5e6f7g8h9i0j2/quiz",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "lessons", "64f1a2b3c4d5e6f7g8h9i0j2", "quiz"]
+            },
+            "description": "Get AI-generated quiz questions for a lesson. Returns questions without correct answers for user interaction."
+          }
+        },
+        {
+          "name": "Submit Quiz Answers",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answers\": [0, 2, 1, 3, 0]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/lessons/quiz/64f1a2b3c4d5e6f7g8h9i0j3/submit",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "lessons", "quiz", "64f1a2b3c4d5e6f7g8h9i0j3", "submit"]
+            },
+            "description": "Submit quiz answers for grading. Returns score, detailed results with explanations, and updates progress tracking."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resources & Projects",
+      "description": "Learning resources and project recommendations",
+      "item": [
+        {
+          "name": "Get Topic Resources",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/resources/topics/topic-1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "resources", "topics", "topic-1"]
+            },
+            "description": "Get AI-curated learning resources (books, courses, articles, videos) for a specific topic with difficulty levels and recommendations."
+          }
+        },
+        {
+          "name": "Get Module Projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/resources/modules/module-1/projects",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "resources", "modules", "module-1", "projects"]
+            },
+            "description": "Get portfolio-worthy project suggestions for a module with requirements, tech stack, and skills demonstrated."
+          }
+        },
+        {
+          "name": "Mark Resource as Completed",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/resources/64f1a2b3c4d5e6f7g8h9i0j4/complete",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "resources", "64f1a2b3c4d5e6f7g8h9i0j4", "complete"]
+            },
+            "description": "Mark a learning resource as completed for progress tracking and portfolio building."
+          }
+        },
+        {
+          "name": "Mark Project as Completed",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/resources/projects/64f1a2b3c4d5e6f7g8h9i0j5/complete",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "resources", "projects", "64f1a2b3c4d5e6f7g8h9i0j5", "complete"]
+            },
+            "description": "Mark a project as completed for portfolio tracking and skill demonstration."
+          }
+        },
+        {
+          "name": "Get User Portfolio",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/resources/portfolio",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "resources", "portfolio"]
+            },
+            "description": "Get user's learning portfolio with completed projects, resources, quiz scores, and skill progression summary."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "description": "System health and status endpoints",
+      "item": [
+        {
+          "name": "API Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Check if the API server is running and healthy. No authentication required."
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["health"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"status\": \"OK\",\n  \"message\": \"SkillFoundry API is running\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
